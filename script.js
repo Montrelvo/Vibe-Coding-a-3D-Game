@@ -45,11 +45,69 @@ scene.add(wall4);
 camera.position.set(0, 1.6, 0); // Position camera at a typical human height
 camera.lookAt(0, 2.5, -5); // Look towards the front wall
 
+// Mouse control variables
+let isRightMouseButtonPressed = false;
+let previousMousePosition = {
+    x: 0,
+    y: 0
+};
+
+// Add event listeners for mouse control on the canvas
+const canvas = renderer.domElement;
+
+canvas.addEventListener('mousedown', (event) => {
+    if (event.button === 2) { // Right mouse button
+        isRightMouseButtonPressed = true;
+        previousMousePosition.x = event.clientX;
+        previousMousePosition.y = event.clientY;
+        canvas.style.cursor = 'grabbing'; // Change cursor style
+    }
+});
+
+canvas.addEventListener('mouseup', (event) => {
+    if (event.button === 2) { // Right mouse button
+        isRightMouseButtonPressed = false;
+        canvas.style.cursor = 'grab'; // Restore cursor style
+    }
+});
+
+canvas.addEventListener('mousemove', (event) => {
+    if (isRightMouseButtonPressed) {
+        const deltaX = event.clientX - previousMousePosition.x;
+        const deltaY = event.clientY - previousMousePosition.y;
+
+        // Adjust sensitivity as needed
+        const sensitivity = 0.002;
+
+        // Rotate camera based on mouse movement
+        // Rotating around the Y axis for horizontal movement
+        camera.rotation.y -= deltaX * sensitivity;
+
+        // Rotating around the X axis for vertical movement
+        // Need to be careful about flipping the camera
+        camera.rotation.x -= deltaY * sensitivity;
+
+        // Optional: Limit vertical rotation to prevent flipping
+        camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+
+
+        previousMousePosition.x = event.clientX;
+        previousMousePosition.y = event.clientY;
+    }
+});
+
+// Prevent context menu on right click
+canvas.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+
+
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
     // No object rotation in this basic room setup
+    // Camera rotation is handled by mousemove event listener
 
     renderer.render(scene, camera);
 }

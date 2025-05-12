@@ -25,6 +25,8 @@ To create a basic web-based 3D application displaying a basic room with simple s
     *   Adjusted the camera position to be inside the room.
     *   Removed the cube rotation logic from the `animate()` function.
 
+8.  **Added Right-Click Camera Control (`script.js`)**: Implemented event listeners for mouse down, mouse up, and mouse move on the canvas to enable camera rotation when the right mouse button is held down and the mouse is moved. Prevented the default context menu on right-click.
+
 ## Tips for Expansion
 
 Here are some ideas and tips for expanding this basic 3D room scene into a more complete game:
