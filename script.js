@@ -52,6 +52,9 @@ let previousMousePosition = {
     y: 0
 };
 
+// Keyboard control variables
+const keysPressed = {};
+
 // Add event listeners for mouse control on the canvas
 const canvas = renderer.domElement;
 
@@ -101,16 +104,53 @@ canvas.addEventListener('contextmenu', (event) => {
     event.preventDefault();
 });
 
+// Add event listeners for keyboard control
+window.addEventListener('keydown', (event) => {
+    keysPressed[event.key.toLowerCase()] = true;
+});
+
+window.addEventListener('keyup', (event) => {
+    keysPressed[event.key.toLowerCase()] = false;
+});
+
 
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
-    // No object rotation in this basic room setup
-    // Camera rotation is handled by mousemove event listener
+    // Handle keyboard movement
+    const moveSpeed = 0.05;
+    const rotationSpeed = 0.02;
+
+    if (keysPressed['w']) {
+        // Move forward
+        camera.translateZ(-moveSpeed);
+    }
+    if (keysPressed['s']) {
+        // Move backward
+        camera.translateZ(moveSpeed);
+    }
+    if (keysPressed['a']) {
+        // Rotate left (around the camera's local Y axis)
+        camera.rotateY(rotationSpeed);
+    }
+    if (keysPressed['d']) {
+        // Rotate right (around the camera's local Y axis)
+        camera.rotateY(-rotationSpeed);
+    }
+
 
     renderer.render(scene, camera);
 }
+
+// Handle window resizing
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+animate();
 
 // Handle window resizing
 window.addEventListener('resize', () => {

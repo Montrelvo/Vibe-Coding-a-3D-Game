@@ -26,6 +26,7 @@ To create a basic web-based 3D application displaying a basic room with simple s
     *   Removed the cube rotation logic from the `animate()` function.
 
 8.  **Added Right-Click Camera Control (`script.js`)**: Implemented event listeners for mouse down, mouse up, and mouse move on the canvas to enable camera rotation when the right mouse button is held down and the mouse is moved. Prevented the default context menu on right-click.
+9.  **Added Keyboard Camera Movement (`script.js`)**: Implemented event listeners for keydown and keyup to track pressed keys and added logic in the `animate` function to move the camera forward (W), backward (S), rotate left (A), and rotate right (D) based on key presses.
 
 ## Tips for Expansion
 
