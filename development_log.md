@@ -34,6 +34,8 @@ To create a basic web-based 3D application displaying a basic room with simple s
 11. **Using a Local Server**: Started a local HTTP server (`python -m http.server 8000`) to serve the files, which is necessary for running the project with JavaScript modules.
 12. **Code Review**: Reviewed the code in `index.html`, `style.css`, `script.js`, `js/scene.js`, and `js/controls.js` for errors and potential issues. No major errors were found in the current implementation.
 
+13. **Addressed CORS and Module Loading Issues**: Corrected the way JavaScript modules were being loaded in `index.html` to resolve "Cross-Origin Request Blocked" and "Module source URI is not allowed" errors when running from a local server.
+
 ## Tips for Expansion
 
 Here are some ideas and tips for expanding this basic 3D room scene into a more complete game, with a focus on the God game concept:
